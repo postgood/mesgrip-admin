@@ -1,0 +1,143 @@
+@charset "utf-8";
+/* --- 2012.11.27 APROCNI K.H.Y. --- */
+@page {size: a4; page-break-after: always;}
+/*
+.noprint{display:none;font-size:100px;}*/
+.noborder{border:none !important;background:none;}
+#printArea td{white-space:normal;word-break:break-all;}
+h3{text-align:left;font-size:13px !important;font-weight:bold !important;color:#7589c7;letter-spacing:-1px;position:relative;padding:5px 0 7px 3px  !important;}
+
+/* 인쇄용 컨트롤 */
+/*.printA4{width: 210mm;height: 297mm;background-color: #ffffff;padding: 0 1px;}*/
+.printA4{width: 210mm;min-height: 300mm;background-color: #ffffff;padding: 0 1px;}
+.printWrap { padding:8px 10px; background:#fff; border:1px solid #ddd; text-align:left; margin:5px auto 12px; border-radius:4px; } 
+.printWrap th { text-align:left; } 
+.printWrap td { text-align:left; } 
+
+.printInfo {margin-top: 5px; } 
+.printInfo thead th { padding:5px 0; font-size:11px; } 
+.printInfo tbody th { height:30px; padding:5px 0; font-weight:bold; font-size:15px; line-height:1.1; border-left:1px solid #000;border-bottom:1px solid #000; white-space:normal; text-align:center; color:#000; background:#ddd;} 
+.printInfo tbody th.top {line-height:1.2; border-top:1px solid #000;} 
+.printInfo tbody th.last {line-height:1.2; border-right:1px solid #000;} 
+.printInfo tbody td { height:30px; padding:5px 5px; font-size:15px; line-height:1.1;border-left:1px solid #000; border-bottom:1px solid #000; white-space:normal; text-align:left; color:#333; background:#fff; } 
+.printInfo tbody td.top {line-height:1.2; border-top:1px solid #000;} 
+.printInfo tbody td.last {line-height:1.2; border-right:1px solid #000;} 
+.printInfo tbody td.noborder {border-right:0px !important;height:2px !important;} 
+.printInfo tbody td.qr {line-height:1.2; border:1px solid #bbbbbb !important;} 
+.printInfo tfoot th { padding:7px 0 !important; font-size:11px; font-weight:bold; } 
+.printInfo .hidden_tr { display:none; } 
+.printInfo .hidden_tr td { background:#fcfcfc; text-align:left; line-height:22px; padding:15px !important; } 
+
+.printList { border-top:2px solid #000000 !important; border-bottom:1px solid #000000; margin:0 auto; } 
+.printList caption { display:none; } 
+.printList thead th { height:30px; padding:5px 0; font-weight:bold; font-size:15px; line-height:1.1; border-bottom:1px solid #000; white-space:normal; text-align:center; color:#000; background:#eee; } 
+.printList tbody td { background:#fff;height:34px; padding:0px 3px; font-weight:normal; font-size:15px; line-height:1.1; white-space:normal; text-align:center; border-right:5px solid #fff;border-left:5px solid #fff; border-bottom:1px dotted #aaa; } 
+.printList tbody td.first { border-left:0px solid #e4e4e4; } 
+.printList tbody td.last { border-right:0px solid #e4e4e4; } 
+.printList tbody td.bottom { border-right:0px ; border-left:0px} 
+.printList tfoot th { padding:8px 0; font-weight:bold; font-size:14px; line-height:1.5; white-space:normal; letter-spacing:-1px; text-align:center; color:#333; background:#fafafa; border-bottom:1px solid #eee; } 
+
+.workTitle {font-size: 46px;font-weight:bold;text-align: left;vertical-align: top;font-family: 'Nanum Square', sans-serif;letter-spacing: -1px;}
+.reportTitle {font-family: 'Nanum Square', sans-serif;font-size: 12px;letter-spacing: -1px;}
+.qrCode canvas {margin: auto;}
+
+/*#transReport {font-size: 10px;font-family: 'NanumBarunGothicLight' !important;}*/
+#transReport {font-size: 10px;font-family: 'NanumBarunGothicExtraLight' !important;}
+#transReport table {font-size: 13px;}
+#transReport thead th { height:30px; padding:3px 0; font-weight:bold; font-size:12px; line-height:1.1; border:1px solid #566981; white-space:normal; text-align:center; color:#fff; background:#566981;  } 
+#transReport table td{background-color: #FFFFFF;height: 34px; padding: 0 5px;line-height:1.1;}
+#transReport tr:nth-child(2n+2) td { background:#ffffff; }
+
+#transReport .ledgerList {font-size: 13px;}
+#transReport .ledgerList thead th { word-break: break-all; height:30px; padding:3px 0; font-weight:bold; font-size:12px; line-height:1.1; border:1px solid #000; white-space:normal; text-align:center; color:#000; background:#eeeeee;  } 
+#transReport .ledgerList tbody td {word-break: break-all;font-size: 13px;background-color: #FFFFFF;height: 34px; padding: 0 5px;line-height:1.1;border:1px solid #000;}
+#transReport .ledgerList tbody tr:nth-child(2n+2) td { background:#ffffff; }
+
+#transReport .bankInfo {font-size: 13px;}
+#transReport .bankInfo tbody td {height:20px !important;background-color: #FFFFFF;height: 34px; padding: 0 5px;line-height:1.1;border:0px solid #000;}
+#transReport .bankInfo tbody tr:nth-child(2n+2) td { background:#ffffff; }
+
+#transReport .totalTable {font-size: 13px;}
+#transReport .totalTable tbody td {height:25px !important;background-color: #FFFFFF;height: 34px; padding: 0 5px;line-height:1.1;border:0px solid #000;}
+#transReport .totalTable tbody tr:nth-child(2n+2) td { background:#ffffff; }
+
+.textLineHeight19px {line-height: 18px !important;    padding-top: 2px !important;    padding-bottom: 2px !important;}
+
+.printTitle {display: none !important;background: #f1f2f3 !important; width:100%;font-weight: bold !important;text-align:center !important; margin-top:0px !important; margin-bottom:10px !important; line-height: 50px !important; font-size: 20px !important;-webkit-print-color-adjust: exact;}
+.print_header {display: none !important; position: fixed; top: 0; width:100%; text-align:center !important;border:1px solid #fff;}
+.print_footer {display: none !important; position: fixed; bottom: 0; width:100%;text-align:center !important;font-size:12px;opacity: .5;}
+.print_footer .left {display: none !important; float:left;text-align:left !important; font-size:9px !important;opacity: .5;}
+.print_footer .right {display: none !important; float:right;text-align:right !important; font-size:9px !important;opacity: .5;}
+.print_footer:after{display: none !important;display:block; content:''; clear:both;}
+@media print {
+	@page {margin-left:1cm; margin-right:1cm;margin-top:1cm;margin-bottom: 1cm;}
+	 body{margin-left:0cm; margin-right:0cm;margin-top:0cm;margin-bottom: 0cm;}
+	* {-webkit-print-color-adjust: exact;print-color-adjust: exact;} 
+
+	/*.printA4{width: 210mm;height: 297mm;background-color: #ffffff;padding: 0 1px;} */
+
+  	tr:nth-child(2n+2) td { background:#fff; } 
+  	.workTitle {font-size: 46px;font-weight:bold;text-align: left;vertical-align: top;font-family: 'Nanum Square', sans-serif;letter-spacing: -1px;}
+  	.reportTitle {font-family: 'Nanum Square', sans-serif;font-size: 12px;letter-spacing: -1px;}
+
+	.ledgerList { page-break-inside:auto !important}
+	.ledgerList thead { display: table-header-group !important }
+	.ledgerList tfoot { display: table-row-group !important}
+	.ledgerList tr    { page-break-inside:avoid !important; page-break-after:auto !important}
+	
+/*
+	#transReport {font-size: 10px;}
+	#transReport table {font-size: 13px;}
+	#transReport thead th { height:30px; padding:3px 0; font-weight:bold; font-size:12px; line-height:1.1; border:1px solid #566981; white-space:normal; text-align:center; color:#fff; background:#566981;  } 
+	#transReport table td{background-color: #FFFFFF;height: 34px; padding: 0,5px;line-height:1.1;}
+	#transReport tr:nth-child(2n+2) td { background:#ffffff; }
+	
+	#transReport .ledgerList {font-size: 13px;}
+	#transReport .ledgerList th { height:30px; padding:3px 0; font-weight:bold; font-size:12px; line-height:1.1; border:1px solid #000; white-space:normal; text-align:center; color:#000; background:#eeeeee;  } 
+	#transReport .ledgerList td {font-size: 13px;background-color: #FFFFFF;height: 34px; padding: 0,5px;line-height:1.1;border:1px solid #000;}
+	#transReport .ledgerList tr:nth-child(2n+2) td { background:#ffffff; }
+	
+	#transReport .bankInfo {font-size: 13px;}
+	#transReport .bankInfo td {height:20px !important;background-color: #FFFFFF;height: 34px; padding: 0,5px;line-height:1.1;border:0px solid #000;}
+	#transReport .bankInfo tr:nth-child(2n+2) td { background:#ffffff; }
+	
+	#transReport .totalTable {font-size: 13px;}
+	#transReport .totalTable td {height:25px !important;background-color: #FFFFFF;height: 34px; padding: 0,5px;line-height:1.1;border:0px solid #000;}
+	#transReport .totalTable tr:nth-child(2n+2) td { background:#ffffff; }
+*/	
+/*
+  .printWrap { padding:8px 10px; background:#fff; border:1px solid #ddd; text-align:left; margin:5px auto 12px; border-radius:4px; } 
+  .printWrap th { text-align:left; } 
+  .printWrap td { text-align:left; } 
+  
+  .printInfo {margin-top: 5px; } 
+.printInfo thead th { padding:5px 0; font-size:11px; } 
+.printInfo tbody th { height:30px; padding:5px 0; font-weight:bold; font-size:12px; line-height:1.2; border-left:1px solid #000;border-bottom:1px solid #000; white-space:normal; text-align:center; color:#000; background:#ccc;} 
+.printInfo tbody th.top {line-height:1.2; border-top:1px solid #000;} 
+.printInfo tbody th.last {line-height:1.2; border-right:1px solid #000;} 
+.printInfo tbody td { height:30px; padding:5px 5px; font-size:12px; line-height:1.2;border-left:1px solid #000; border-bottom:1px solid #000; white-space:normal; text-align:left; color:#333; background:#fff; } 
+.printInfo tbody td.top {line-height:1.2; border-top:1px solid #000;} 
+.printInfo tbody td.last {line-height:1.2; border-right:1px solid #000;} 
+.printInfo tbody td.noborder {border-right:0px !important;height:2px !important;} 
+.printInfo tbody td.qr {line-height:1.2; border:1px solid #bbbbbb !important;} 
+.printInfo tfoot th { padding:7px 0 !important; font-size:11px; font-weight:bold; } 
+.printInfo .hidden_tr { display:none; } 
+.printInfo .hidden_tr td { background:#fcfcfc; text-align:left; line-height:22px; padding:15px !important; } 
+
+.printList { border-top:2px solid #000000 !important; border-bottom:1px solid #000000; margin:0 auto; } 
+.printList caption { display:none; } 
+.printList thead th { height:30px; padding:5px 0; font-weight:bold; font-size:12px; line-height:1.2; border-bottom:1px solid #000; white-space:normal; text-align:center; color:#000; background:#ddd; } 
+.printList tbody td { height:30px; padding:0px 0; font-weight:normal; font-size:12px; line-height:1.2; white-space:normal; text-align:center; border-right:5px solid #fff;border-left:5px solid #fff; border-bottom:1px dotted #ccc; } 
+.printList tbody td.first { border-left:0px solid #e4e4e4; } 
+.printList tbody td.last { border-right:0px solid #e4e4e4; } 
+.printList tbody td.bottom { border-right:0px ; border-left:0px} 
+.printList tfoot th { padding:8px 0; font-weight:bold; font-size:14px; line-height:1.5; white-space:normal; letter-spacing:-1px; text-align:center; color:#333; background:#fafafa; border-bottom:1px solid #eee; } 
+
+				*/
+				.printTitle {display: inline-block !important;background: #f1f2f3 !important; width:100%;font-weight: bold !important;text-align:center !important; margin-top:0px !important; margin-bottom:10px !important; line-height: 50px !important; font-size: 20px !important;-webkit-print-color-adjust: exact;}
+				.print_header {display: inline-block !important; position: fixed; top: 0; width:100%; text-align:center !important;border:1px solid #fff;}
+				.print_footer {display: inline-block !important; position: fixed; bottom: 0; width:100%;text-align:center !important;font-size:12px;opacity: .5;}
+				.print_footer .left {display: inline-block !important; float:left;text-align:left !important; font-size:9px !important;opacity: .5;}
+				.print_footer .right {display: inline-block !important; float:right;text-align:right !important; font-size:9px !important;opacity: .5;}
+				.print_footer:after{display: inline-block !important;display:block; content:''; clear:both;}
+}
