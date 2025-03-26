@@ -976,7 +976,7 @@ let companyController = class {
 
 	load = (_mapData, cbfunc) => {
 		const self = this;
-
+/*
 		let mapData = {
 			ctl : 'company',
 			cmd : 'load'
@@ -989,6 +989,7 @@ let companyController = class {
 			_api.ajaxformdata(function(rdata){ 
 					cbfunc(rdata);
 			});
+*/			
 	}
 
 	update = (_mapData, cbfunc) => {

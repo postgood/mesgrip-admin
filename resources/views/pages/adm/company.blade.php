@@ -4,16 +4,16 @@
 	</div>
 	<!-- 영역 Wrap -->
 	<div class="searchWrapArea">
-		<input type="hidden" name="orderculumn" value="cNm">
+		<input type="hidden" name="orderculumn" value="cuNm">
 		<input type="hidden" name="orderby" value="ASC">
 		<table cellpadding="0" cellspacing="0" summary="" class="noBdrTb tr_nohover">
 			<caption></caption>
 			<colgroup>
-			<!-- col width="35px">
-			<col width="90px" -->
+			<col width="35px">
+			<col width="90px">
 			<col width="45px">
 			<col width="150px">
-			<col width="65px">
+			<col width="35px">
 			<col width="80px">
 			<col width="40px">
 			<col width="120px">
@@ -21,14 +21,14 @@
 			</colgroup>
 			<tbody>
 				<tr>
-					<!-- th class="ar">· 분류</th>
+					<th class="ar">· 분류</th>
 					<td>
 						<select class="w98p schColumBorderColorDefault" name="searchColumn">
 							<option value="cuNm">업체명</option>
 							<option value="cuOwnerNm">대표자명</option>
 							<option value="cuTel">전화번호</option>
 						</select>
-					</td -->
+					</td>
 					
 					<th class="ar">· 검색어</th>
 					<td>
@@ -37,12 +37,13 @@
 							<div class="inputTextClean"><span>×</span></div>
 						</div>
 					</td>
-					<th class="ar">· 만료여부</th>
+					<th class="ar">· 구분</th>
 					<td>
-						<select class="schColumBorderColorDefault" name="isExpiry">
+						<select class="schColumBorderColorDefault" name="cuTypeCd">
 							<option value="">전체</option>
-							<option value="Y">유효</option>
-							<option value="N">만료</option>
+							<option value="A">고객사</option>
+							<option value="B">외주사</option>
+							<option value="C">자재사</option>
 						</select>
 					</td>
 					<td>
@@ -73,10 +74,12 @@
 				<col width="25px">
 				<col width="250px"><!-- 업체명 -->
 				<col width="100px"><!-- 대표자 -->
+				<!-- col width="50px" --><!-- 주요 -->
 				<col width="120px"><!-- 사업자번호 -->
+				<!-- col width="120px" --><!-- 전화번호 -->
 				<col width="450px"><!-- 주소-->
-				<col width="80px"><!-- 만료일-->
-				<col width="50px"><!-- 직원수 -->
+				<col width="170px"><!-- 유형-->
+				<col width="50px"><!-- 할인율 -->
 				<col width="auto"><!-- 비고 -->
 				<col width="150px"><!-- 등록일시 -->
 				<col width="50px"><!-- 보기 -->
@@ -86,10 +89,12 @@
 					<th><i class="fa-solid fa-rotate-right cursorPointer" title="정렬 초기화"></i><!-- input type="checkbox" class="vm" name="chckAll" --></th>
 					<th class="sortTd" column="cuNm">업체명 <img src="/images/btn/btn_sort2.png" alt="" class="vm" style="cursor:pointer;"></th>
 					<th class="sortTd" column="cuOwnerNm">대표자 <img src="/images/btn/btn_sort2.png" alt="" class="vm" style="cursor:pointer;"></th>
+					<!-- th >주요 </th -->
 					<th >사업자번호(종)</th>
+					<!-- th >전화번호 </th -->
 					<th >주소 </th>
-					<th >만료일 </th>
-					<th >직원수 </th>
+					<th >유형 </th>
+					<th >직원 </th>
 					<th >메모 </th>
 					<th >등록일시</th>
 					<th class="last">수정</th>
@@ -103,10 +108,12 @@
 				<col width="25px">
 				<col width="250px"><!-- 업체명 -->
 				<col width="100px"><!-- 대표자 -->
+				<!-- col width="50px" --><!-- 주요 -->
 				<col width="120px"><!-- 사업자번호 -->
+				<!-- col width="120px" --><!-- 전화번호 -->
 				<col width="450px"><!-- 주소-->
-				<col width="80px"><!-- 만료일-->
-				<col width="50px"><!-- 직원수 -->
+				<col width="170px"><!-- 유형-->
+				<col width="50px"><!-- 직원 -->
 				<col width="auto"><!-- 비고 -->
 				<col width="150px"><!-- 등록일시 -->
 				<col width="50px"><!-- 보기 -->

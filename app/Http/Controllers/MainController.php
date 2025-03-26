@@ -12,19 +12,33 @@ class MainController extends Controller
 {
     public function main(Request $req)
     {
-        // 회원사 로그인
-        if($req->session()->get('KPFMEM_APP')) {    
-            return redirect('/mem/dashboard');
-
-        // 거래처 로그인
-        } elseif($req->session()->get('KPFACT_APP')) {
-            return redirect('/act/dashboard');
+        // 관리자 로그인
+        if($req->session()->get('KPFADM_APP')) {    
+            return redirect('/adm/dashboard');
         
         // 미 로그인 (로그인 페이지로 이동)
         } else {
             $data = ['GlobalInfo'=>$req->GlobalInfo, 'SendParam'=> $req->SendParam];
             return view('pages/main',$data);
         }
+    }
+    function logout(Request $req)
+    {
+        $req->session()->forget('KPFADM_APP');
+        return redirect('/');
+    }
+
+    function dashboard(Request $req)
+    {
+        $sessionInfo = $req->session()->get('KPFADM_APP');
+        //dd(property_exists($sessionInfo,'Domain'));
+        if(!property_exists($sessionInfo,'Domain') || $sessionInfo->Domain != $req->server('HTTP_HOST')){
+            //dd($sessionInfo);
+            $req->session()->forget('KPFADM_APP');
+            return redirect('/');
+        }
+        $data = ['GlobalInfo'=>$req->GlobalInfo,'sessionInfo'=>$sessionInfo, 'SendParam'=> $req->SendParam];
+        return view('pages/adm/dashboard',$data);
     }
 
     public function join(Request $req)
@@ -45,12 +59,44 @@ class MainController extends Controller
         return view('pages/empty',$data);
     }
 
-    public function workReport(Request $req)
+    public function pages(Request $req)
     {
-        $data = ['GlobalInfo'=>$req->GlobalInfo, 'SendParam'=> $req->SendParam];
-        return view('pages/workReport',$data);
-    }
+		$sendParam = $req->SendParam;
 
+        // $sendParam가 null인지 확인
+        if ($sendParam === null) {
+            abort(404); // 404 에러 페이지로 리다이렉트
+        }
+
+        // 해당하는 view를 로드하고, view가 존재하지 않는 경우 404 에러 페이지로 리다이렉트
+        try {
+            $sessionInfo = $req->session()->get('KPFMEM_APP');
+            $data = ['GlobalInfo'=>$req->GlobalInfo,'sessionInfo'=>$sessionInfo, 'SendParam'=> $req->SendParam];
+            return view('pages/template/'.$sendParam, $data);
+        } catch (Exception $e) {
+            abort(404); // 404 에러 페이지로 리다이렉트
+        }
+	}
+
+    public function layerpopup(Request $req)
+    {
+		$sendParam = $req->SendParam;
+
+        // $sendParam가 null인지 확인
+        if ($sendParam === null) {
+            abort(404); // 404 에러 페이지로 리다이렉트
+        }
+
+        // 해당하는 view를 로드하고, view가 존재하지 않는 경우 404 에러 페이지로 리다이렉트
+        try {
+            $sessionInfo = $req->session()->get('KPFMEM_APP');
+            $data = ['GlobalInfo'=>$req->GlobalInfo,'sessionInfo'=>$sessionInfo, 'SendParam'=> $req->SendParam];
+
+            return view('pages/layerpopup/'.$sendParam, $data);
+        } catch (Exception $e) {
+            abort(404); // 404 에러 페이지로 리다이렉트
+        }
+	}
     function check(Request $req) {
 
         $request = Request::capture();
@@ -60,12 +106,11 @@ class MainController extends Controller
          * 로그인 API호출
          */
         $result = $this->callApi("/public/ws", [
-            'ctl'           => 'company',
+            'ctl'           => 'admin',
             'cmd'           => 'login',
             'privatekey'    => env('PRIVATEKEY'),
-            'host'			=> $host, 
-            'userId'        => trim($req->input()['userid']),
-            'encPwd'        => trim($req->input()['encpwd'])
+            'memberID'        => trim($req->input()['userid']),
+            'memberPwd'        => trim($req->input()['encpwd'])
         ]);
         $resultData = json_decode($result);
         if($resultData->code==0)
@@ -75,16 +120,13 @@ class MainController extends Controller
             $userInfo = $respData->userInfo;
             $userInfo->AccessToken = $respData->accessToken;
             $userInfo->AuthKey = $respData->authKey;
+            $userInfo->Domain = $req->server('HTTP_HOST');
 
-            // authLevel 3 : 거래처, 4 : 회원사
-            if($userInfo->authLevel == 3) {
-                $userInfo->OutPath = '/act/logout';
-                $req->session()->put('KPFACT_APP',$userInfo);
-                return redirect('/act/dashboard');
-            } else if($userInfo->authLevel == 4) {
-                $userInfo->OutPath = '/mem/logout';
-                $req->session()->put('KPFMEM_APP',$userInfo);
-                return redirect('/mem/dashboard');
+
+            if($userInfo->authLevel > 4) {
+                $userInfo->OutPath = '/adm/logout';
+                $req->session()->put('KPFADM_APP',$userInfo);
+                return redirect('/adm/dashboard');
             }
 
             return redirect('empty')->with('fail','로그인 정보를 다시 확인해 주세요.');
@@ -93,139 +135,7 @@ class MainController extends Controller
             return back()->with('fail',$resultData->message);
         }
     }
-    function workLoginCheck(Request $req) {
-        
-        $request = Request::capture();
-        $host = $request->getHost();
-        $port = $request->getPort();
-        /**
-         * 로그인 API호출
-         */
-        $result = $this->callApi("/public/ws", [
-            'ctl'           => 'company',
-            'cmd'           => 'login',
-            'privatekey'    => env('PRIVATEKEY'),
-            'host'			=> $host, 
-            'userId'        => trim($req->input()['userid']),
-            'encPwd'        => trim($req->input()['encpwd'])
-        ]);
-
-        $resultData = json_decode($result);
-        $message = '로그인 정보를 다시 확인해 주세요.';
-        if($resultData->code==0)
-        {
-            $respData = $resultData->data;
-            $userInfo = $respData->userInfo;
-            $userInfo->AccessToken = $respData->accessToken;
-            $userInfo->AuthKey = $respData->authKey;
-            
-            // authLevel 4 : 회원사 직원
-            if($userInfo->authLevel == 4) {
-                $userInfo->OutPath = '/work/logout';
-                $req->session()->put('KPFWORK_APP',$userInfo);
-                return redirect('/work/dashboard');
-            }else if($userInfo->authLevel > 0){
-                $message = '본사 직원만 접근 가능합니다.';
-            }
-
-            return redirect('/work')->with('fail',$message);
-
-        } else {
-            return redirect('/work')->with('fail',$message);
-            //return back()->with('fail',$resultData->message);
-        }
-    }
-    function inoutLoginCheck(Request $req) {
-        
-        $request = Request::capture();
-        $host = $request->getHost();
-        $port = $request->getPort();
-        /**
-         * 로그인 API호출
-         */
-        $result = $this->callApi("/public/ws", [
-            'ctl'           => 'company',
-            'cmd'           => 'login',
-            'privatekey'    => env('PRIVATEKEY'),
-            'host'			=> $host, 
-            'userId'        => trim($req->input()['userid']),
-            'encPwd'        => trim($req->input()['encpwd'])
-        ]);
-
-        $resultData = json_decode($result);
-        $message = '로그인 정보를 다시 확인해 주세요.';
-        if($resultData->code==0)
-        {
-            $respData = $resultData->data;
-            $userInfo = $respData->userInfo;
-            $userInfo->AccessToken = $respData->accessToken;
-            $userInfo->AuthKey = $respData->authKey;
-            
-            // authLevel 4 : 회원사 직원
-            if($userInfo->authLevel == 4) {
-                $userInfo->OutPath = '/inout/logout';
-                $req->session()->put('KPFINOUT_APP',$userInfo);
-                return redirect('/inout/dashboard');
-            }else if($userInfo->authLevel > 0){
-                $message = '본사 직원만 접근 가능합니다.';
-            }
-
-            return redirect('/inout')->with('fail',$message);
-
-        } else {
-            return redirect('/inout')->with('fail',$message);
-            //return back()->with('fail',$resultData->message);
-        }
-    }
-
-    function workReportLoginCheck(Request $req) {
-        error_log('workReportLoginCheck');
-        error_log($req->p);
-        $p = $req->p;
-        //$p = trim($req->input()['p']);
-        if(strlen($p) == 0){
-            return redirect('/workreport?p='.$p)->with('fail','작업 지시서 QR코드를 스캔하여 진입하십시요');
-        }
-        $request = Request::capture();
-        $host = $request->getHost();
-        $port = $request->getPort();
-        /**
-         * 로그인 API호출
-         */
-        $result = $this->callApi("/public/ws", [
-            'ctl'           => 'company',
-            'cmd'           => 'login',
-            'privatekey'    => env('PRIVATEKEY'),
-            'host'			=> $host, 
-            'userId'        => trim($req->input()['userid']),
-            'encPwd'        => trim($req->input()['encpwd'])
-        ]);
-
-        $resultData = json_decode($result);
-        $message = '로그인 정보를 다시 확인해 주세요.';
-        if($resultData->code==0)
-        {
-            $respData = $resultData->data;
-            $userInfo = $respData->userInfo;
-            $userInfo->AccessToken = $respData->accessToken;
-            $userInfo->AuthKey = $respData->authKey;
-            
-            // authLevel 3 : 거래처 직원
-            if($userInfo->authLevel == 3) {
-                $userInfo->OutPath = '/workreport/logout';
-                $req->session()->put('KPFWORKREPORT_APP',$userInfo);
-                return redirect('/workreport/dashboard?p='.$p); 
-            }else if($userInfo->authLevel > 0){
-                $message = '등록된 거래처 직원만 접근 가능합니다.';
-            }
-
-            return redirect('/workreport?p='. $p)->with('fail',$message);
-
-        } else {
-            return redirect('/workreport?p='. $p)->with('fail',$message);
-            //return back()->with('fail',$resultData->message);
-        }
-    }
+    
     public function callApi($url,$param,$token=null)
     {
         $reqHeaders = getallheaders();

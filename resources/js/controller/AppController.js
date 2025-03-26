@@ -23,7 +23,7 @@ class AppController {
 					self._login =  new LoginController(self._const,self._data,self._param);
 					self._login.init();
 					break;
-				case 'mem/dashboard':
+				case 'adm/dashboard':
 					self._menu =  new MenuController(self._const,self._data,self._param);
 					self._menu.init();
 					break;

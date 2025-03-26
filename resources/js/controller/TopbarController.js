@@ -193,16 +193,10 @@ class TopbarController {
 		const self = this;
 
 		self.load({eSeq:self._const.__USER_ID}, function(resp){
-
 			if(resp.code == 0) {
-				self._employee = resp.data;
+				self._admin = resp.data;
 				$("#topUserName").empty();
-				if(self._const.__USER_LEVEL == 3){
-					$("#topUserName").append('<i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;<span style="font-size:11px;">'+self._const.__CU_NM +'</span>&nbsp;&nbsp;'+ self._employee.eNm);
-				}else{	
-					$("#topUserName").append('<i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;'+self._employee.eNm);
-				}
-
+				$("#topUserName").append('<i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;'+self._admin.name);
 			} else {
 				alert('직원 데이터를 불러올 수 없습니다');
 				return false;
@@ -214,7 +208,7 @@ class TopbarController {
 		const self = this;
 
 		let mapData = {
-			ctl : 'employee',
+			ctl : 'admin',
 			cmd : 'load'
 		}
 		$.extend(mapData,_mapData);

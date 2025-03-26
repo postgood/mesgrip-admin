@@ -6,14 +6,16 @@ import Report from '../raon_modules/Report.js';
 import TopbarController from './TopbarController.js'
 import FooterController from './FooterController.js'
 
+import MemberController from './member'
 import ClientController from './client'
 import DistributionController from './distribution'
+/*
 import CompanyController from './company'
 import DashboardController from './dashboard'
 import LedgerController from './ledger'
 import CustomerController from './customer'
 import StockController from './stock'
-
+*/
 
 class MenuController {
 	constructor(_const, _data, _param) {
@@ -58,7 +60,9 @@ class MenuController {
 
 		self._topbar =  new TopbarController(self, self._const,self._data,self._param);
 		self._footer =  new FooterController(self._const,self._data,self._param, self);
-
+		self._member =  new MemberController(self._const,self._data,self._param, self);
+		self._member.init();
+/*
 		self._client =  new ClientController(self._const,self._data,self._param, self);
 		self._client.init();
 		
@@ -84,7 +88,8 @@ class MenuController {
 			function(){
 				self.intervalId = setInterval(function(){self.intervalRun()}, self._reloadTime)
 			} ,self._reloadStartTime);
-
+*/
+/*
 		let _api = new AjaxCall(self._const,{ctl:"company", cmd :"dashboardInfo"},{'spinner':true});
 		_api.ajaxformdata(function(rdata){ 
 					if(rdata.code == 0) {
@@ -101,7 +106,7 @@ class MenuController {
 							alert(rdata.message);
 					}
 			});
-
+*/
 		self.getMenu(function(data){
 			self._topbar.init();
 			self.displayMenu(data);
@@ -110,8 +115,8 @@ class MenuController {
 
 
 			// 새로고침시 활성화 된 메뉴 살리기
-			if(sessionStorage.getItem("MenuInfo")!=undefined){
-				self._tabs.info = JSON.parse(sessionStorage.getItem("MenuInfo"));
+			if(sessionStorage.getItem("AMenuInfo")!=undefined){
+				self._tabs.info = JSON.parse(sessionStorage.getItem("AMenuInfo"));
 				for(let i in self._tabs.info) {
 					let info = self._tabs.info[i];
 					if(info.____ACTIVE____=="Y") {
@@ -342,10 +347,8 @@ class MenuController {
 				//e.stopPropagation();		
 			});	
 
-			if(sessionStorage.getItem("MenuInfo") == undefined || sessionStorage.getItem("MenuInfo").length == 0){
-				//if(self._const.__USER_LEVEL == 3){
-					setTimeout(function(){$("#sideWrap").find("ul li a").eq(0).trigger('click');},1500);
-				//}
+			if(sessionStorage.getItem("AMenuInfo") == undefined || sessionStorage.getItem("AMenuInfo").length == 0){
+			setTimeout(function(){$("#sideWrap").find("ul li a").eq(0).trigger('click');},1500);
 			}
 		} else {
 			alert(data.message, 'info');
@@ -558,7 +561,7 @@ class MenuController {
 				$($tab).appendTo($hiddenTabArea);
 			}
 		}
-		if(sessionStorage!=undefined) sessionStorage.setItem("MenuInfo",self.getCacheJSON(infos));
+		if(sessionStorage!=undefined) sessionStorage.setItem("AMenuInfo",self.getCacheJSON(infos));
 		$ctrTabMore.appendTo($tabArea);
 		if($hiddenTabArea.children().length > 0) $ctrTabMore.show();
 		self.menuFocus(id);
@@ -611,7 +614,7 @@ class MenuController {
 		// 메뉴 호출
 		let mapData = {
 			ctl : 'menu',
-			cmd : 'employeeMenu'
+			cmd : 'adminMenu'
 		}
 		// $.extend(mapData,_mapData);
 
@@ -657,7 +660,7 @@ class MenuController {
 			if(url.substring(0,1) == '/'){url = url.substring(1)};
 			url = url +((/\?/).test(url) ? "&" : "?") + (new Date()).getTime();
 			$.ajax({
-				url: ((self._const.__USER_LEVEL == 4) ? '/temp/':'/tempAct/') +url.replace(/\//g,''), // 읽어올 HTML 파일의 경로
+				url: ('/temp/') +url.replace(/\//g,''), // 읽어올 HTML 파일의 경로
 				//url: '/temp/'+url, // 읽어올 HTML 파일의 경로
 				type: 'GET',
 				dataType: 'html', // 데이터 형식은 HTML
@@ -746,95 +749,7 @@ class MenuController {
 		$id.parent().prev(".bg").width('100%'); // 불투명 스크린 문서크기만큼 width 리사이즈
 	}
 
-	workReport = (d) => {
-		const self = this;
-		let _api = new AjaxCall(self._const,{ctl:"company", cmd :"load",employee:'N', account :'N'},{'wapi': 'user/ws','spinner':true});
-		_api.ajaxformdata(function(rdata){ 
-					if(rdata.code == 0) {
-						let info = rdata.data;
-						d.cWorkReport = info.cWorkReport;
-						if(['A','B'].indexOf(info.cWorkReport) >= 0){
-							self._report.workReportTypeA(d,wortReport);
-						}else{
-							self._report.workReportTypeB(d,wortReport);
-						}
-
-						function wortReport(){
-							
-							let printA4 = $("#printWrap .printA4");
-							
-							// $("<div class='print_footer'><span class='left'></span><span class='right'>프로그램 문의 : <strong>(주)한국문화사랑</strong> K-PrintFactory / 010-9089-0794 / postgood@kakao.com</span></div>").appendTo(printA4);
-							
-							$('.cNm',printWrap).text(info.cNm);
-							if(info.cTel != undefined && info.cTel != '') $('.cTel',printWrap).text(self._utils.formatPhoneNumber(info.cTel));
-							$('.cAddress',printWrap).text(info.cAddr +' '+ info.cAddrDetail);
-							$('.cHomepage',printWrap).text(info.cHomepage);
-							$('.reportTitle',printWrap).append($('<pre>'+info.cReportTitle+'<pre>'));
-							if(info.fileInfo.length>0){
-								$('.reportLogo',printWrap).append($('<img src="https://kprintfactory.s3.ap-northeast-2.amazonaws.com'+info.fileInfo[0].path.replace('kprintfactory', '')+'" style="width:130px;"></img>'));
-							}else{
-								$('.reportLogo',printWrap).append($('<strong style="font-size:20px;font-weight:bold;font-family: \'Nanum Square\', sans-serif;">'+ info.cNm +'</strong>'));
-							}
-
-							$(printA4).print({
-								addGlobalStyles: true,
-								stylesheet: null,
-								rejectWindow: true,
-								noPrintSelector: ".no-print",
-								iframe: true,
-								append: null,
-								prepend: null,
-								timeout: 1500,
-							  });
-
-						  } 
-
-					} else {
-							alert(rdata.message);
-					}
-		});
-
-		
-	}
-	transReport = (d) => {
-		const self = this;
-		let _api = new AjaxCall(self._const,{ctl:"company", cmd :"load", employee:'N'},{'wapi': 'user/ws','spinner':true});
-		_api.ajaxformdata(function(rdata){ 
-					if(rdata.code == 0) {
-						let info = rdata.data;
-						self._report.workReport(d, function(){
-							
-							let printA4 = $("#printWrap .printA4");
-							// $("<div class='print_footer'><span class='left'></span><span class='right'>프로그램 문의 <strong>(주)한국문화사랑</strong> K-PrintFactory / 010-9089-0794 / postgood@kakao.com</span></div>").appendTo(printA4);
-							$('.cNm',printWrap).text(info.cNm);
-							if(info.cTel != undefined && info.cTel != '') $('.cTel',printWrap).text(self._utils.formatPhoneNumber(info.cTel));
-							$('.cAddress',printWrap).text(info.cAddr +' '+ info.cAddrDetail);
-							$('.reportTitle',printWrap).append($('<pre>'+info.cReportTitle+'<pre>'));
-							if(info.fileInfo.length>0){
-								$('.reportLogo',printWrap).append($('<img src="https://kprintfactory.s3.ap-northeast-2.amazonaws.com'+info.fileInfo[0].path.replace('kprintfactory', '')+'" style="width:130px;"></img>'));
-							}else{
-								$('.reportLogo',printWrap).append($('<strong style="font-size:20px;font-weight:bold;font-family: \'Nanum Square\', sans-serif;">'+ info.cNm +'</strong>'));
-							}
-								
-/*							
-							$(printA4).print({
-								addGlobalStyles: true,
-								stylesheet: null,
-								rejectWindow: true,
-								noPrintSelector: ".no-print",
-								iframe: true,
-								append: null,
-								prepend: null,
-								timeout: 1500,
-							  });
-*/							  
-						});				
-						
-					} else {
-							alert(rdata.message);
-					}
-		});
-	}
+	
 	fileDownload = (d) => {
 		let self = this;
 		let mapData = {
@@ -1019,7 +934,9 @@ class MenuController {
 			console.log(e.message);
 		}
 	}
+	
 	intervalRun = () => {
+		/*
 		let self = this;
 		let activeMenu = ['MM00000001','MM00000013','MM00000014','MM00000015'];
 		if(activeMenu.indexOf(self._tabs.activeId) >-1){
@@ -1044,6 +961,7 @@ class MenuController {
 					self['_'+ mgController].onControllerAction(mController, 'retrieve', self._tabs.activeId);
 				} ,self._reloadActionTime);
 			});
+			*/
 /*
 		self.intervalId = setInterval(function(){
 			self._parent.lastModifyTimeCheck(['order','work','distribution'],self._currentDateTime, function(){
@@ -1052,7 +970,7 @@ class MenuController {
 			});
 		}, self._parent._reloadTime);
 */		
-		}
+	//	}
 	}
 }
 export default MenuController

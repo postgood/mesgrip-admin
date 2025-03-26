@@ -246,6 +246,8 @@ class  AjaxCall {
                 this._options.wapi = 'customer/'+ mode;
             }else if(_const.__USER_LEVEL == 4){
                 this._options.wapi = 'user/'+ mode;
+            }else if(_const.__USER_LEVEL > 4){
+                this._options.wapi = 'admin/'+ mode;
             }else{
                 this._options.wapi = 'public/'+ mode;
             }

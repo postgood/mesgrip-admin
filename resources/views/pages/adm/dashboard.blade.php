@@ -1,4 +1,4 @@
-@extends('layouts.mem', [])
+@extends('layouts.adm', [])
 
 @section('content')
 <div class="ctrContWrap" id="ctrContWrap">
