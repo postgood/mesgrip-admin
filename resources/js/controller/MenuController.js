@@ -271,7 +271,7 @@ class MenuController {
 			const menuOff = $('#sideOff .lnb');
 
 			let gSort = undefined;
-			let gOpenMenu = undefined;
+			let gOpenMenu = $('<dl class="lnbDl"/>');
 			for(let i in sstorage) {
 				let v = sstorage[i];
 
@@ -290,8 +290,6 @@ class MenuController {
 						}else if(v.mgCode=='CS'){
 							iconTag = '<i class="fa-solid fa-boxes-packing" style="width:25px;"></i>';
 						}
-						
-						
 						gSort = v.mgSort;
 						gOpenMenu = $('<dl class="lnbDl"><dt id="'+v.mgNm+'">'+ iconTag + v.mgNm+ '</dt><dd><ul></ul></dd></dl>');
 					}

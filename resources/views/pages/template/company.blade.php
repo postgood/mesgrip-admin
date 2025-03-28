@@ -53,10 +53,7 @@
 					</td>
 					<td>
 						<div class="ar">
-							<!-- a href="#" class="btnSearch btnSearchCall" title="검색조건을 기준으로 검색을 합니다."><i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;검색</a -->
-							<!-- a href="#" class="btnSearch btnCreate" title="신규로 등록 할 수 있습니다."><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;신규</a -->
-							<a href="#" class="btnSearch btnCreate" title="신규 수주건을 등록 할 수 있습니다." style="padding-top:4px;"><i class="fa-solid fa-plus" style="font-size:17px;"></i></a>
-							<!--a href="#" class="btnSearch2 btnTransDelete" title="선택된 건을 삭제 할 수 있습니다."><i class="fa-regular fa-trash-can"></i>&nbsp;&nbsp;삭제</a -->
+							<a href="#" class="btnSearch btnCreate" title="신규 등록 할 수 있습니다." style="padding-top:4px;"><i class="fa-solid fa-plus" style="font-size:17px;"></i></a>
 							<a href="#" class="btnSearch2 btnTransDelete" title="선택된건을 삭제 할 수 있습니다." style="padding-top:4px;"><i class="fa-regular fa-trash-can" style="font-size:17px;"></i></a>
 						</div>
 					</td>
@@ -71,14 +68,18 @@
 			<caption></caption>
 			<colgroup>
 				<col width="25px">
-				<col width="250px"><!-- 업체명 -->
+				<col width="180px"><!-- 업체명 -->
 				<col width="100px"><!-- 대표자 -->
 				<col width="120px"><!-- 사업자번호 -->
+				<col width="180px"><!-- 도메인 -->
 				<col width="450px"><!-- 주소-->
 				<col width="80px"><!-- 만료일-->
 				<col width="50px"><!-- 직원수 -->
+				<col width="50px"><!-- 직원수 -->
 				<col width="auto"><!-- 비고 -->
-				<col width="150px"><!-- 등록일시 -->
+				<col width="110px"><!-- 등록일시 -->
+				<col width="80px"><!-- 회원사 메뉴 설정 -->
+				<col width="80px"><!-- 거래처 메뉴 설정 -->
 				<col width="50px"><!-- 보기 -->
 			</colgroup>
 			<thead>
@@ -87,11 +88,15 @@
 					<th class="sortTd" column="cuNm">업체명 <img src="/images/btn/btn_sort2.png" alt="" class="vm" style="cursor:pointer;"></th>
 					<th class="sortTd" column="cuOwnerNm">대표자 <img src="/images/btn/btn_sort2.png" alt="" class="vm" style="cursor:pointer;"></th>
 					<th >사업자번호(종)</th>
+					<th >도메인</th>
 					<th >주소 </th>
 					<th >만료일 </th>
-					<th >직원수 </th>
+					<th >직원 </th>
+					<th >로그인 </th>
 					<th >메모 </th>
 					<th >등록일시</th>
+					<th >회원사 메뉴</th>
+					<th >거래처 메뉴</th>
 					<th class="last">수정</th>
 				</tr>
 			</thead>
@@ -101,14 +106,18 @@
 				<caption></caption>
 				<colgroup>
 				<col width="25px">
-				<col width="250px"><!-- 업체명 -->
+				<col width="180px"><!-- 업체명 -->
 				<col width="100px"><!-- 대표자 -->
 				<col width="120px"><!-- 사업자번호 -->
+				<col width="180px"><!-- 도메인 -->
 				<col width="450px"><!-- 주소-->
 				<col width="80px"><!-- 만료일-->
 				<col width="50px"><!-- 직원수 -->
+				<col width="50px"><!-- 직원수 -->
 				<col width="auto"><!-- 비고 -->
-				<col width="150px"><!-- 등록일시 -->
+				<col width="110px"><!-- 등록일시 -->
+				<col width="80px"><!-- 회원사 메뉴설정 -->
+				<col width="80px"><!-- 거래처 메뉴설정 -->
 				<col width="50px"><!-- 보기 -->
 				</colgroup>
 				<tbody>
@@ -144,37 +153,31 @@
 	</div>
 	<!-- //영역 Wrap -->
 </div>
-<template id="bankWrap">
-	<!-- div class="mt3">
-		<input class="w20p" type="text" name="caBankNm" placeholder="은행명" requiremsg="은행명">
-		<input class="w20p" type="text" name="caOwnerNm" placeholder="예금주" requiremsg="예금주">
-		<input class="w35p" type="text" name="caAccount" placeholder="계좌번호" requiremsg="계좌번호">
-		<a href="javascript:void(0);" class="mt3 btnStyle05 btnRemoveBank">삭제</a>
-	</div -->
-</template>
-<template id="popbillMemberDiv">
-	<div class="mw_defalut" style="width:350px;" id="">
+<template id="companyInsertDiv">
+	<div class="mw_defalut" style="width:850px;" id="">
 		<div class="mw_title" id="handle">
 			<h1 class="mw_title_mid">
-				<span class="title">Popbill 가입정보</span>
+				<span class="title">회원사 등록</span>
 				<a href="javascript:void(0);" class="close_layer btnClosePopLayer"><img src="/images/btn/btn_mw_close.png" alt="레이어 닫기"></a>
 			</h1>
 		</div>
 		<div class="mw_ctWrap">
-			<div class="mw_contents">
-				<div style="overflow-y:auto;padding:2px;">
+			<div class="mw_contents" style="margin-bottom: 7px !important;">
+				<div class="mw_body" style="">
 					<div class="bottonWrap">
 						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover">
 							<caption></caption>
 							<colgroup>
-								<col width="auto">
+								<col width="50%">
+								<col width="50%">
 							</colgroup>
 							<tbody>
 								<tr>
+									<th style="padding-left:0px;">
+									</th>
 									<th>
-										<div class="al f_lt" style="width:49.5%;">이미 가입되어 있습니다. <br>Popbill 아이디를 입력하십시요</div>
-										<div class="ar f_rt" style="width:49.5%;">
-											<a href="javascript:void(0);" class="btnSearch popbillSave">저장</a>
+										<div class="ar">
+											<a href="javascript:void(0);" class="btnSearch save">저장</a>
 										</div>
 									</th>
 								</tr>
@@ -182,51 +185,229 @@
 						</table>
 					</div>
 
-					<div class="searchWrap">
-						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover mb10 orderMaster">
+					<div class="searchWrap" style="margin-bottom:15px;">
+						<table class="commonPopTable tr_nohover" cellspacing="0" cellpadding="0" summary="">
 							<caption></caption>
 							<colgroup>
-								<col width="25%">
-								<col width="auto">
+								<col width="14%">
+								<col width="36%">
+								<col width="14%">
+								<col width="36%">
 							</colgroup>
-							<tbody>
+							<tbody name="rtTbody" class="rtTbody">
 								<tr>
-									<th class="txt_r"><span style="color:red;">*</span> 아이디</th>
-									<td><input type="hidden" name="idCheck"><input type="text" class="w98p" name="popbillId" requiremsg="아이디" placeholder="8자에서 20자 미만"></td>
+									<th style="padding-left:10px;"><font color="red">*</font>업체명
+									</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input class="" name="cNm" type="text" style="width:250px;" requiremsg="업체명">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>
+									<th style="padding-left:10px;"><font color="red">*</font>서비스만료일</th>
+									<td class=""><input class="date crdrIp" type="text" name="expiryDt" placeholder="날짜 선택" readonly requiremsg="만료일"></td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;"><font color="red">*</font>사업자등록번호</th>
+									<td>
+										<input class="inputs" type="text" name="cBizNo" style="width:250px;" requiremsg="사업자등록번호">
+									</td>
+									<th style="padding-left:10px;">종사업장번호</th>
+									<td>
+										<input class="inputs" type="text" name="cBizNoNum" style="width:250px;" >
+									</td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;"><font color="red">*</font>대표자</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px;" type="text" name="cOwnerNm" placeholder="대표자" requiremsg="대표자">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>
+									<th style="padding-left:10px;"><font color="red">*</font>접속 URL</th>
+									<td><input class="" type="text" name="cDomain" style="width:250px;" requiremsg="접속URL"></td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;">업태</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px" type="text" name="cUpjong" placeholder="업태">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>
+									<th style="padding-left:10px;">종목</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px;" type="text" name="cJongmok" placeholder="종목">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;">사업장주소</th>
+									<td colspan="3">
+										<p class="mb5">
+										<input name="cZipcode" class="ip_acc vm readonly" type="text" style="width:60px;margin-right:10px;" placeholder="우편번호" readonly="readonly"><input name="cAddr" class="ip_acc vm readonly" type="text" style="width:200px;" placeholder="기본 주소" readonly="readonly">
+											<a class="btnStyle03 vm btnAddrSearch" href="javascript:void(0);">주소검색</a>
+										</p>
+										<p>
+											<div class="inputTextCleanDiv">
+												<input name="cAddrDetail" class="ip_acc vm" style="width:270px;" type="text" placeholder="상세 주소">
+												<div class="inputTextClean"><span>×</span></div>
+											</div>
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;">대표번호</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px" type="text" inputType="phone" name="cTel"  placeholder="">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>	
+									<th style="padding-left:10px;">대표메일</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px" type="text" name="cInvoiceEmail" placeholder="세금계산서 발행용 메일">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;">FAX</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px" type="text" name="cFax" placeholder="팩스번호">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>	
+									<th style="padding-left:10px;">홈페이지</th>
+									<td>
+										<div class="inputTextCleanDiv">
+											<input style="width:250px" type="text" name="cHomepage" placeholder="https://">
+											<div class="inputTextClean"><span>×</span></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;">로고 이미지
+										<p class="mt3">
+											<a href="javascript:void(0);" class="btnStyleMin03 btnAddFile">파일 첨부하기</a>
+										</p>
+									</th>
+									<td colspan="3" style="height:80px;">
+										<input id="uploadProfie" name="upfile" style="display: none;" type="file" accept="image/*">
+										<img id="uploadProfie-preview" src="/images/logo.png" width="172px"> ※ 권장 이미지크기 (180 X 50)
+									</td>
+								</tr>
+								<tr>
+									<th style="padding-left:10px;">작업지시서 유형<span></th>
+									<td style="">
+										<select name="cWorkReport">
+											<option value="A"> A-Type</option>
+											<option value="B"> A-Type(배송장)</option>
+											<option value="C"> B-Type</option>
+											<option value="D"> B-Type(배송장)</option>
+										</select>
+								<br> <span style="padding-left:5px; color:#999">※설정 후 저장을 해야 적용이 됩니다.</span>
+									</td>
+									<th style="padding-left:10px;">발주서 유형<span></th>
+									<td style="height:85px;">
+										<select name="cTransReport">
+											<option value="A"> A-Type </option>
+										</select>
+										<br> <span style="padding-left:5px; color:#999">※설정 후 저장을 해야 적용이 됩니다.</span>
+									</td>
 								</tr>
 							</tbody>
 						</table>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
-<template id="popbillJoinDiv">
-	<div class="mw_defalut" style="width:650px;height:200px;" id="">
+<template id="companyMenuSetting">
+	<div class="mw_defalut" style="width:450px;" id="">
 		<div class="mw_title" id="handle">
 			<h1 class="mw_title_mid">
-				<span class="title">Popbill 연동 신청</span>
+				<span class="title">권한 설정</span>
 				<a href="javascript:void(0);" class="close_layer btnClosePopLayer"><img src="/images/btn/btn_mw_close.png" alt="레이어 닫기"></a>
 			</h1>
 		</div>
 		<div class="mw_ctWrap">
 			<div class="mw_contents">
-				<div style="overflow-y:auto;padding:2px;">
+				<div style="">
 					<div class="bottonWrap">
 						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover">
 							<caption></caption>
 							<colgroup>
-								<col width="auto">
+								<col width="50%">
+								<col width="50%">
 							</colgroup>
 							<tbody>
 								<tr>
 									<th>
-										<div class="al f_lt" style="width:49.5%;"></div>
-										<div class="ar f_rt" style="width:49.5%;">
-											<a href="javascript:void(0);" class="btnSearch popbillJoin">연동신청</a>
-										</div>
+										<div class="al"></div>
+									</th>
+									<th>
+										<div class="ar"><a href="javascript:void(0);" class="btnSearch memuSave">저장</a></div>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="searchWrap pt10" style="height:485px;overflow-y:auto;padding:2px;">
+						<table cellpadding="0" cellspacing="0" border="0" summary="" class="listTbType01 tr_nohover mb10 tablScrollDisplay scrollTbThead" style="border-top: 1px solid #9ac7e1 !important;">
+							<caption></caption>
+							<colgroup>
+								<col width="150px">
+								<col width="25px">
+								<col width="200px">
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="txt_c" style="background-color:#9ac7e1a3;border:1px solid #9ac7e1;">대분류</td>
+									<th class="txt_c" style="background-color:#9ac7e1a3;border:1px solid #9ac7e1;border-right-width: 0 !important;"><input type="checkbox" name="menuAll"></th>
+									<th class="txt_c last" style="background-color:#9ac7e1a3;border:1px solid #9ac7e1;border-left-width: 0 !important;">소분류</th>
+								<tr>
+							</thead>
+							<tbody class="menuList">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<template id="companyEmployeeInsertDiv">
+	<div class="mw_defalut" style="width:680px;" id=""><div class="mw_title" id="handle">
+		<h1 class="mw_title_mid">
+			<span class="title">직원 등록</span>
+			<a href="javascript:void(0);" class="close_layer btnClosePopLayer"><img src="/images/btn/btn_mw_close.png" alt="레이어 닫기"></a>
+		</h1>
+		</div>
+		<div class="mw_ctWrap">
+			<div class="mw_contents">
+				<div style="height:350px;overflow-y:auto;padding:2px;">
+					<div class="bottonWrap">
+						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover">
+							<caption></caption>
+								<colgroup>
+								<col width="50%">
+								<col width="50%">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>
+										<div class="al passwordChange"></div>
+									</th>
+									<th>
+										<div class="ar"><a href="javascript:void(0);" class="btnSearch employeeSave">저장</a></div>
 									</th>
 								</tr>
 							</tbody>
@@ -234,33 +415,63 @@
 					</div>
 
 					<div class="searchWrap">
-						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover mb10 orderMaster">
+						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover mb10">
 							<caption></caption>
 							<colgroup>
-								<col width="12%">
+								<col width="60px">
+								<col width="auto">
+								<col width="60px">
+								<col width="auto">
+							</colgroup>
+							<tbody>
+								<tr>
+									<th class="txt_r"><span style="color: red;">*</span> 이름</th>
+									<td><div class="inputTextCleanDiv"><input type="text" name="eNm" style="width:240px;" requiremsg="이름"><div class="inputTextClean"><span>×</span></div></div></td>
+									<th class="txt_r">직급</th>
+									<td><div class="inputTextCleanDiv"><input type="text" name="eRank" style="width:240px;"><div class="inputTextClean"><span>×</span></div></div></td>
+								<tr>
+									<th class="txt_r">담당분야</th>
+									<td><div class="inputTextCleanDiv"><input type="text" name="eTakeCharge" style="width:240px;" placeholder="예시)정산,생산,관리,검수"><div class="inputTextClean"><span>×</span></div></div></td>
+									<th class="txt_r"><span style="color: red;">*</span> 전화번호</th>
+									<td><div class="inputTextCleanDiv"><input type="text" name="eTel" style="width:240px;" requiremsg="eTel" vtype="phone"><div class="inputTextClean"><span>×</span></div></div></td>
+								</tr>
+								<tr>
+									<th class="txt_r">메모</th>
+									<td colspan="3"><textarea name="eMemo" class="w100p" rows="1"></textarea></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="searchWrap employeeAuthTr">
+						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover mb10">
+							<caption></caption>
+							<colgroup>
+								<col width="60px">
 								<col width="30%">
-								<col width="15%">
+								<col width="50px">
 								<col width="auto">
 							</colgroup>
 							<tbody>
 								<tr>
-									<th class="txt_r"><span style="color:red;">*</span> 아이디</th>
-									<td><input type="hidden" name="idCheck"><input type="text" class="w98p" name="popbillId" requiremsg="아이디" placeholder="8자에서 50자 미만"></td>
-									<th class="txt_r"><span style="color:red;">*</span> 비밀번호</th>
-									<td>
-										<input type="password" name="popbillPwd" class="w47p" placeholder="8~20자,영,숫자,특수 포함"> /
-										<input type="password" name="popbillPwdRe" class="w47p" placeholder="비밀번호 확인">
-									</td>
+									<th class="txt_c" colspan="4">권한</th></tr>
+								<tr>
+									<th class="txt_r">접속권한</th>
+									<td><select name="eLoginYn"><option value="N">미사용</option><option value="Y">사용</option></select></td>
+									<th class="txt_r">담당장비</th>
+									<td><span class="eqNms f_lt" style="width:75%;margin: 5px 0px;"></span><a class="btnStyle03 f_rt eqChoice" href="javascript:void(0);">장비선택</a></td>
 								</tr>
 								<tr>
-									<th class="txt_r"><span style="color:red;">*</span> 담당자 성명</th>
-									<td>
-										<input class="w98p inputs" type="text" name="popbillContactName" style="" placeholder="담당자 성명" >
-									</td>
-									<th class="txt_r"><span style="color:red;">*</span> 담당자 연락처</th>
-									<td>
-										<input class="w98p inputs" type="text" name="popbillContactTel" style="" placeholder="담당자 연락처">
-									</td>
+									<th class="txt_r">아이디</th>
+									<td><input type="text" name="eId" class="w100p" placeholder="예시)kprintfactory" autocomplete="false"></td>
+									<th class="txt_r">비밀번호</th>
+									<td><input type="password" name="ePwd" class="w35p"  vtype="password" placeholder="비밀번호" autocomplete="false"> <input type="password" name="reEPwd" class="w35p mr5" placeholder="비밀번호 확인"><a class="btnStyle03 btnChangePwd f_rt" href="javascript:void(0);">변경</a></td>
+								</tr>
+								<tr>
+									<th class="txt_r">권한</th>
+									<td><select name="eManagerYn"><option value="N">직원</option><option value="Y">관리자</option></select></td>
+									<th class="txt_r">재직여부</th>
+									<td><select name="eOutYn"><option value="N">재직중</option><option value="Y">퇴사</option></select></td>
 								</tr>
 							</tbody>
 						</table>
@@ -269,55 +480,4 @@
 			</div>
 		</div>
 	</div>
-</template>
-<template id="popbillQuitDiv">
-	<div class="mw_defalut" style="width:650px;height:200px;" id="">
-		<div class="mw_title" id="handle">
-			<h1 class="mw_title_mid">
-				<span class="title">Popbill 연동 해지(탈퇴)</span>
-				<a href="javascript:void(0);" class="close_layer btnClosePopLayer"><img src="/images/btn/btn_mw_close.png" alt="레이어 닫기"></a>
-			</h1>
-		</div>
-		<div class="mw_ctWrap">
-			<div class="mw_contents">
-				<div style="overflow-y:auto;padding:2px;">
-					<div class="bottonWrap">
-						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover">
-							<caption></caption>
-							<colgroup>
-								<col width="auto">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th>
-										<div class="al f_lt reFund" style="width:49.5%;"></div>
-										<div class="ar f_rt" style="width:49.5%;">
-											<a href="javascript:void(0);" class="btnSearch popbillQuit">해지신청</a>
-										</div>
-									</th>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<div class="searchWrap">
-						<table cellpadding="0" cellspacing="0" border="0" summary="" class="noBdrTb tr_nohover mb10 orderMaster">
-							<caption></caption>
-							<colgroup>
-								<col width="12%">
-								<col width="auto">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th class="txt_r"><span style="color:red;">*</span> 해지사유</th>
-									<td><textarea class="w99p" name="quitReason" rows="3"></textarea></td>
-								</tr>
-							</tbody>
-						</table>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
+</templage>

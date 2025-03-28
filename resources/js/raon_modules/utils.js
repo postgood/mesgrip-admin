@@ -612,6 +612,9 @@ let Utils = class {
 			}else if(type == 'money'){
 				v = self.unconvertMoney(v);
 				v = self.convertMoney(v);	
+			}else if(type == 'bizNo'){
+				v = self.convertNumber(v);
+				v = self.convertBizNo(v);	
 			}
 			if(typeof focusoutFnc == 'function') focusoutFnc(v);
 			$(this).val(v);
